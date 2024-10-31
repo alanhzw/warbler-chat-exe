@@ -1,0 +1,7 @@
+wxid: wxid_m7u03jjls3ua21
+filePath: C:\Users\HUAWEI\Documents\WeChat Files\wxid_m7u03jjls3ua21
+addrLen: 8
+key: 6fe1b76462034a308f453aaa7cd2fe2ed0677d9e6496497eb977689bb067bebd
+wxDbPath: C:\Users\HUAWEI\Documents\WeChat Files
+currentWxDbPath: C:\Users\HUAWEI\Documents\WeChat Files\wxid_m7u03jjls3ua21\Msg
+targetDbPath: D:\github\warbler-chat-exe\src\wx_db\wxid_m7u03jjls3ua21

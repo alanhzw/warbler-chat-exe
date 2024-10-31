@@ -1,4 +1,4 @@
-# learn-ele
+# ele
 
 An Electron application with Vue and TypeScript
 
@@ -32,3 +32,5 @@ $ pnpm build:mac
 # For Linux
 $ pnpm build:linux
 ```
+
+仅支持 win10 及以上操作系统，不支持win7，linux，以及 macOS。

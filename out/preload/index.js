@@ -1,7 +1,11 @@
 "use strict";
 const electron = require("electron");
 const preload = require("@electron-toolkit/preload");
-const api = {};
+const api = {
+  test: {
+    test1: (callback) => electron.ipcRenderer.on("test:test1", (_event, value) => callback(value))
+  }
+};
 if (process.contextIsolated) {
   try {
     electron.contextBridge.exposeInMainWorld("electron", preload.electronAPI);

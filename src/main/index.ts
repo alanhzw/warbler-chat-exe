@@ -1,74 +1,28 @@
-import { app, shell, BrowserWindow, ipcMain } from 'electron'
-import { join } from 'path'
-import { electronApp, optimizer, is } from '@electron-toolkit/utils'
-import icon from '../../resources/icon.png?asset'
+import { app } from 'electron';
+import { electronApp, optimizer } from '@electron-toolkit/utils';
+import ipc from './ipc';
+import createWindow from './methods/createWindow';
+import execInit from './methods/execInit';
 
-function createWindow(): void {
-  // Create the browser window.
-  const mainWindow = new BrowserWindow({
-    width: 900,
-    height: 670,
-    show: false,
-    autoHideMenuBar: true,
-    ...(process.platform === 'linux' ? { icon } : {}),
-    webPreferences: {
-      preload: join(__dirname, '../preload/index.js'),
-      sandbox: false
-    }
-  })
-
-  mainWindow.on('ready-to-show', () => {
-    mainWindow.show()
-  })
-
-  mainWindow.webContents.setWindowOpenHandler((details) => {
-    shell.openExternal(details.url)
-    return { action: 'deny' }
-  })
-
-  // HMR for renderer base on electron-vite cli.
-  // Load the remote URL for development or the local html file for production.
-  if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
-    mainWindow.loadURL(process.env['ELECTRON_RENDERER_URL'])
-  } else {
-    mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
-  }
-}
-
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
+// 当 electron 准备完成的时候, 就会触发这个事件
 app.whenReady().then(() => {
-  // Set app user model id for windows
-  electronApp.setAppUserModelId('com.electron')
-
-  // Default open or close DevTools by F12 in development
-  // and ignore CommandOrControl + R in production.
-  // see https://github.com/alex8088/electron-toolkit/tree/master/packages/utils
+  // 用于设置应用程序的用户模型 ID（App User Model ID）。
+  // 这个 ID 主要用于 Windows 操作系统，特别是在任务栏、开始菜单和跳转列表中识别和管理应用程序
+  electronApp.setAppUserModelId('com.top.warbler');
+  // 创建新的 browserWindow 时触发此事件
   app.on('browser-window-created', (_, window) => {
-    optimizer.watchWindowShortcuts(window)
-  })
-
-  // IPC test
-  ipcMain.on('ping', () => console.log('pong'))
-
-  createWindow()
-
-  app.on('activate', function () {
-    // On macOS it's common to re-create a window in the app when the
-    // dock icon is clicked and there are no other windows open.
-    if (BrowserWindow.getAllWindows().length === 0) createWindow()
-  })
-})
-
-// Quit when all windows are closed, except on macOS. There, it's common
-// for applications and their menu bar to stay active until the user quits
-// explicitly with Cmd + Q.
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
-})
-
-// In this file you can include the rest of your app"s specific main process
-// code. You can also put them in separate files and require them here.
+    // 用于确保在特定窗口中注册的快捷键能够正常工作
+    optimizer.watchWindowShortcuts(window);
+  });
+  // 所有窗口都关闭时, 会触发这个事件
+  app.on('window-all-closed', () => {
+    // 退出应用程序
+    app.quit();
+  });
+  // 进程间通信
+  ipc();
+  // 创建浏览器窗口
+  const mainWindow = createWindow();
+  // 执行初始化操作
+  execInit(mainWindow);
+});
