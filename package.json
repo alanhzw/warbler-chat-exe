@@ -4,7 +4,7 @@
   "description": "流莺聊天报告",
   "main": "./out/main/index.js",
   "author": "warbler",
-  "homepage": "https://github.com/alanhzw/warbler-chat-be#readme",
+  "homepage": "https://github.com/alanhzw/warbler-cms#readme",
   "keywords": [
     "warbler",
     "warbler-chat",
@@ -23,7 +23,8 @@
     "build:unpack": "pnpm build && electron-builder --dir",
     "build:win": "pnpm build && electron-builder --win",
     "build:mac": "pnpm build && electron-builder --mac",
-    "build:linux": "pnpm build && electron-builder --linux"
+    "build:linux": "pnpm build && electron-builder --linux",
+    "clean": "rimraf node_modules"
   },
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.1",
@@ -58,6 +59,7 @@
     "eslint": "^8.57.1",
     "eslint-plugin-vue": "^9.30.0",
     "prettier": "^3.3.3",
+    "rimraf": "^6.0.1",
     "sass": "^1.80.5",
     "typescript": "^5.6.3",
     "unplugin-auto-import": "^0.18.3",
