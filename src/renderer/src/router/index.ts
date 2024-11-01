@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHashHistory } from 'vue-router';
 
 const routes = [
   // 初始化页面
@@ -28,7 +28,7 @@ const routes = [
 
 const router = createRouter({
   routes,
-  history: createWebHistory(),
+  history: createWebHashHistory(),
 });
 
 export default router;

@@ -1,5 +1,5 @@
 {
-  "name": "warbler-chat",
+  "name": "warbler-cms",
   "version": "1.0.0",
   "description": "流莺聊天报告",
   "main": "./out/main/index.js",
@@ -7,23 +7,23 @@
   "homepage": "https://github.com/alanhzw/warbler-chat-be#readme",
   "keywords": [
     "warbler",
-    "cli",
-    "warbler-chat-be"
+    "warbler-chat",
+    "warbler-cms"
   ],
   "scripts": {
     "format": "prettier --write .",
     "lint": "eslint . --ext .js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts,.vue --fix",
     "typecheck:node": "tsc --noEmit -p tsconfig.node.json --composite false",
     "typecheck:web": "vue-tsc --noEmit -p tsconfig.web.json --composite false",
-    "typecheck": "npm run typecheck:node && npm run typecheck:web",
+    "typecheck": "pnpm typecheck:node && pnpm typecheck:web",
     "start": "electron-vite preview",
     "dev": "electron-vite dev",
-    "build": "npm run typecheck && electron-vite build",
+    "build": "pnpm typecheck && electron-vite build",
     "postinstall": "electron-builder install-app-deps",
-    "build:unpack": "npm run build && electron-builder --dir",
-    "build:win": "npm run build && electron-builder --win",
-    "build:mac": "npm run build && electron-builder --mac",
-    "build:linux": "npm run build && electron-builder --linux"
+    "build:unpack": "pnpm build && electron-builder --dir",
+    "build:win": "pnpm build && electron-builder --win",
+    "build:mac": "pnpm build && electron-builder --mac",
+    "build:linux": "pnpm build && electron-builder --linux"
   },
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.1",

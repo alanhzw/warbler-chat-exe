@@ -1,7 +1,7 @@
 import { shell, BrowserWindow } from 'electron';
 import { join } from 'path';
 import { is } from '@electron-toolkit/utils';
-import icon from '../../../resources/icon.png?asset';
+import icon from '../../../resources/icon.png?asset&asarUnpack';
 
 /**
  * @description: 创建浏览器窗口
@@ -42,12 +42,12 @@ export default function createWindow(): BrowserWindow {
   // 开发模式使用 loadURL
   if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
     mainWindow.loadURL(process.env['ELECTRON_RENDERER_URL']);
+    // 打开开发者工具
+    mainWindow.webContents.openDevTools();
   }
   // 生产模式使用 loadFile
   else {
     mainWindow.loadFile(join(__dirname, '../renderer/index.html'));
   }
-  // 打开开发者工具
-  mainWindow.webContents.openDevTools();
   return mainWindow;
 }

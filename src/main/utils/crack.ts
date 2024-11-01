@@ -1,7 +1,7 @@
 import { spawn } from 'child_process';
 import fs from 'fs';
 import StatusCodes from '../config/statusCode';
-import exe from '../../../resources/index.exe?asset';
+import exe from '../../../resources/index.exe?asset&asarUnpack';
 
 // 破解数据库
 const crack = async () => {

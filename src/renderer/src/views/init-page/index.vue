@@ -11,8 +11,7 @@ const globalStore = useGlobalStore();
 
 onMounted(() => {
   globalStore.loading = true;
-  window.api.test.test1((value) => {
-    console.log('🚀🚀 ~ window.api.onUpdateCounter ~ test11:', value);
+  window.api.test.test1(() => {
     globalStore.loading = false;
   });
 });
